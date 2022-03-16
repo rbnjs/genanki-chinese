@@ -1,2 +1,3 @@
 .env
 *.apkg
+__pycache__/
