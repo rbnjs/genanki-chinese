@@ -55,7 +55,7 @@ class Generator(object):
         name = f"{Generator.__pinyin(hanzi)}-{randrange(0,1000)}.mp3"
         path = f"{self.tempfolder}/{name}"
         sound.save(path)
-        return [path, f"[sound:{name}]"]
+        return [f"[sound:{name}]", path]
 
 
     def close(self):
