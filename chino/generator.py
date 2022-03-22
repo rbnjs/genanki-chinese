@@ -4,9 +4,9 @@ import tempfile
 import shutil
 from pypinyin import pinyin
 from gtts import gTTS
-from translate import Translator
+from googletrans import Translator
 from typing import List
-from random import randrange
+import uuid
 # https://github.com/salvoventura/pypexels
 # https://github.com/yakupadakli/python-unsplash
 
@@ -22,15 +22,16 @@ class Generator(object):
 
     def __init__(self):
         self.converter = opencc.OpenCC('s2t.json')
-        self.translator = Translator(from_lang = "zh", to_lang="en")
+        self.translator = Translator()
         self.tempfolder = tempfile.mkdtemp()
 
     def convert(self, hanzi: str) -> List[str]:
+        print(f"Translating {hanzi}")
         sounds = self.create_sound(hanzi)
         return [hanzi,
                 self.converter.convert(hanzi),
                 Generator.__pinyin(hanzi),
-                self.translator.translate(hanzi),
+                self.translator.translate(hanzi).text,
                 sounds[0],
                 sounds[1]]
 
@@ -51,8 +52,8 @@ class Generator(object):
         Returns:
             sound (List[str]): A list with the path of the sound and the name in Anki format.
         """
-        sound = gTTS(hanzi)
-        name = f"{Generator.__pinyin(hanzi)}-{randrange(0,1000)}.mp3"
+        sound = gTTS(hanzi, lang = "zh-TW")
+        name = f"{str(uuid.uuid4())}.mp3"
         path = f"{self.tempfolder}/{name}"
         sound.save(path)
         return [f"[sound:{name}]", path]

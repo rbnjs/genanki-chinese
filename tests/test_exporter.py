@@ -10,8 +10,7 @@ class ExporterTest(unittest.TestCase):
         self.info = [['你好', '你好', 'nǐhǎo', 'Hello', '[sound:nǐhǎo-413.mp3]', './tests/resources/nǐhǎo-413.mp3']]
 
     def tearDown(self):
-        #self.exporter.close()
-        pass
+        self.exporter.close()
 
     def test_create_deck(self):
         self.exporter.create_deck(self.info)

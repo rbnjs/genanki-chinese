@@ -1,35 +1,22 @@
-import genanki
-# https://libretranslate.com/?source=en&target=es&q=Hello%2520friends
-# https://github.com/BYVoid/OpenCC
+import argparse
+from contextlib import closing
+import generator
+import importer
+import exporter
+import sys
 
-def main():
-    # Models needed:
-    # * Audio only -> Chinese
-    # * Chinese to English
-    # * English to Chinese
-    my_model = genanki.Model(
-        1607392319,
-        'Simple Model',
-        fields=[
-            {'name': 'Question'},
-            {'name': 'Answer'},
-        ],
-        templates=[
-            {
-                'name': 'Card 1',
-                'qfmt': '{{Question}}',
-                'afmt': '{{FrontSide}}<hr id="answer">{{Answer}}',
-            },
-        ])
-    my_note = genanki.Note(
-          model=my_model,
-          fields=['Capital of Argentina', 'Buenos Aires'])
-    my_deck = genanki.Deck(
-          2059400110,
-          'Country Capitals')
+def main(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=str, help="Path of the file to import")
+    parser.add_argument('-o', '--output', type=str, help="Path where to put the result", default="output.apkg")
+    args = parser.parse_args(args)
+    with closing(generator.Generator()) as gen:
+        result = []
+        for word in importer.Importer(args.file).ingest():
+            fields = gen.convert(word)
+            result.append(fields)
+        exporter.Exporter(args.output).create_deck(result)
 
-    my_deck.add_note(my_note)
-    genanki.Package(my_deck).write_to_file('output.apkg')
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
