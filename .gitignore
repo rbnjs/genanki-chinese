@@ -1,3 +1,4 @@
 .env
 *.apkg
 __pycache__/
+*.swp
