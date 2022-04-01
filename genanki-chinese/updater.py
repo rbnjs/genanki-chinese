@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from chino.exporter import AUDIO_ONLY, CHINESE_TO_ENGLISH, ENGLISH_TO_CHINESE
+import exporter
 from typing import List
 
 class Updater(object):
@@ -13,7 +13,7 @@ class Updater(object):
         self.deck_name = deck_name
 
     def add_note(self, fields: List[str]):
-        for model in [CHINESE_TO_ENGLISH, ENGLISH_TO_CHINESE, AUDIO_ONLY]:
+        for model in [exporter.CHINESE_TO_ENGLISH, exporter.ENGLISH_TO_CHINESE, exporter.AUDIO_ONLY]:
             result = requests.post(self.base_url, Updater.create_json(fields, self.deck_name, model.name).encode('utf8'))
             print(f"Request result: {result.text}")
 
