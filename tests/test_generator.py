@@ -1,5 +1,5 @@
 import unittest
-from chino import generator
+from genankichinese import generator
 
 class GeneratorTest(unittest.TestCase):
 

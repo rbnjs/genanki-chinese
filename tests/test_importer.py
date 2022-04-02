@@ -1,5 +1,5 @@
 import unittest
-from chino import importer
+from genankichinese import importer
 
 class ImporterTest(unittest.TestCase):
 

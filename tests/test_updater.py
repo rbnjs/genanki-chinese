@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from chino import updater
+from genankichinese import updater
 import unittest
 
 

@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-import exporter
+from genankichinese import exporter
 from typing import List
 
 class Updater(object):

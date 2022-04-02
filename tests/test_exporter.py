@@ -1,5 +1,5 @@
 
-from chino.exporter import Exporter
+from genankichinese.exporter import Exporter
 import unittest
 
 

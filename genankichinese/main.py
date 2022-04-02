@@ -1,9 +1,6 @@
 import argparse
 from contextlib import closing
-import generator
-import importer
-import exporter
-import updater
+from genankichinese import updater, importer, exporter, generator
 import sys
 
 def main(args):
