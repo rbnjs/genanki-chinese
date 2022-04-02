@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="genanki-chinese",
-    version="0.1.2",
+    version="0.1.6",
     author="Ruben Serradas",
     author_email="rubenserradas@gmail.com",
     description="Packages which automates the creation and update of chinese notes for Anki",
@@ -27,5 +27,13 @@ setuptools.setup(
     ],
     package_dir={root_module_folder: root_module_folder},
     packages=[root_module_folder],
-    python_requires=">=3.6",
+    install_requires=[
+        'genanki',
+        'requests',
+        'OpenCC',
+        'pypinyin',
+        'gTTS',
+        'googletrans==4.0.0rc1',
+    ],
+    python_requires=">=3.8",
 )
